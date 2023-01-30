@@ -146,7 +146,7 @@ while(x==0):
         
         
         cv2.imwrite('./images/{}_{}_{}_{}_{}_trans.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), trans_mask)
-        cv2.imwrite('./images/{}_{}_{}_{}_{}_trans.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), press_mask)
+        cv2.imwrite('./images/{}_{}_{}_{}_{}_press.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), press_mask)
         os.rename(img1_filename, './images/{}_{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name))
         
         
@@ -184,6 +184,7 @@ while(x==0):
         shutil.move('./csvs/{}_{}_data.csv'.format(samp_date, samp_shift), 'D:\Documents\LaChiquita\ProcData\{}_{}_data.csv'.format(samp_date.strip('/'), samp_shift))
         shutil.move('./images/{}_{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\ProcImages\{}_{}_{}_{}_{}_orig.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
         shutil.move('./images/{}_{}_{}_{}_{}_trans.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        shutil.move('./images/{}_{}_{}_{}_{}_press.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
         
         
     
