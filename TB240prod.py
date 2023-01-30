@@ -143,10 +143,11 @@ while(x==0):
         
         
         
-        
+        both_mask=trans_mask + 150*press_tf
         
         cv2.imwrite('./images/{}_{}_{}_{}_{}_trans.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), trans_mask)
         cv2.imwrite('./images/{}_{}_{}_{}_{}_press.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), press_mask)
+        cv2.imwrite('./images/{}_{}_{}_{}_{}_both.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), both_mask)
         os.rename(img1_filename, './images/{}_{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name))
         
         
@@ -181,10 +182,12 @@ while(x==0):
         print(df.iloc[-1,])
             
         df.to_csv('./csvs/{}_{}_data.csv'.format(samp_date, samp_shift), index=False)
-        shutil.move('./csvs/{}_{}_data.csv'.format(samp_date, samp_shift), 'D:\Documents\LaChiquita\ProcData\{}_{}_data.csv'.format(samp_date.strip('/'), samp_shift))
-        shutil.move('./images/{}_{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\ProcImages\{}_{}_{}_{}_{}_orig.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
-        shutil.move('./images/{}_{}_{}_{}_{}_trans.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
-        shutil.move('./images/{}_{}_{}_{}_{}_press.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        shutil.move('./csvs/{}_{}_data.csv'.format(samp_date, samp_shift), 'D:\Documents\LaChiquita\YumTB\Script\ProcData\{}_{}_data.csv'.format(samp_date.strip('/'), samp_shift))
+        shutil.move('./images/{}_{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_orig.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        shutil.move('./images/{}_{}_{}_{}_{}_trans.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        shutil.move('./images/{}_{}_{}_{}_{}_press.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        shutil.move('./images/{}_{}_{}_{}_{}_both.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_both.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        
         
         
     
