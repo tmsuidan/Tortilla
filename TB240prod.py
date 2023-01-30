@@ -32,7 +32,7 @@ if not os.path.exists(directory2):
 path2=directory2
 
 """Creats directories if they don't exist, but I intended for them to be on the 
-local PC's hard drive at the start."""
+local PC's hard drive at the start and moved to a network drive after processing."""
 
 
 x=0
