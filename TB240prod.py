@@ -100,7 +100,7 @@ while(x==0):
     samp_shift=input('Enter shift / Ingresar turno (A/B/C):')
     while len(samp_shift)==0:
         samp_shift=input('Invalid Entry \n Enter shift / Ingresar turno (A/B/C):')
-    if samp_shift not in ["A","B","C","a","b","c"]:
+    while samp_shift not in ["A","B","C","a","b","c"]:
         samp_shift=input('Invalid Entry \n Enter shift / Ingresar turno (A/B/C):')
     samp_shift=samp_shift.upper()
     samp_date=input("Enter sample date  MMDDYY (If current date, press enter) / Ingrese la fecha de la muestra MMDDYY (Si es la fecha actual, presione enter):")
@@ -116,7 +116,7 @@ while(x==0):
     samp_line=input("Enter line / Ingrese la linea (1, 2, or 6):")
     while len(samp_line)==0:
         samp_line=input("Enter line / Ingrese la linea (1, 2, or 6):")
-    if samp_line not in ["1","2","6"]:
+    while samp_line not in ["1","2","6"]:
         samp_line=input("Invalid Entry \n Enter line / Ingrese la linea (1, 2, or 6):")
     samp_line='F'+samp_line
     
@@ -129,7 +129,7 @@ while(x==0):
     while len(diam)==0:
         diam=input("Invalid Entry \n Enter size in inches / ingrese el tamaño en pulgadas:")
     diam=float(diam)
-    if diam <=0.0 or diam>14.0:
+    while diam <=0.0 or diam>14.0:
         diam=float(input("Invalid Entry \n Enter size in inches / ingrese el tamaño en pulgadas:"))
     
 
@@ -220,9 +220,13 @@ while(x==0):
         
     
     
-    x=input("Press 'Y' and enter to continue or 'N' and enter to end collection for the shift. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar el cobro del turno.")
-    if x.upper()=='Y': x=0
-    elif x.upper()=='N': x=1
+    y=input("Press 'Y' and enter to continue or 'N' and enter to end collection for the shift. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar el cobro del turno.")
+    while y.upper()not in ['Y','N']:
+        y=input("Inavlid Entry \nPress 'Y' and enter to continue or 'N' and enter to end collection for the shift. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar el cobro del turno.")
+        
+    
+    if y.upper()=='Y': x=0
+    elif y.upper()=='N': x=1
     
 
 
