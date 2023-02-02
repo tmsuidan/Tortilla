@@ -220,9 +220,9 @@ while(x==0):
         
     
     
-    y=input("Press 'Y' and enter to continue or 'N' and enter to end collection for the shift. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar el cobro del turno.")
+    y=input("Press 'Y' and enter to continue or 'N' and enter to end collection. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar el cobro del turno.")
     while y.upper()not in ['Y','N']:
-        y=input("Inavlid Entry \nPress 'Y' and enter to continue or 'N' and enter to end collection for the shift. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar el cobro del turno.")
+        y=input("Inavlid Entry \nPress 'Y' and enter to continue or 'N' and enter to end collection for the shift. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar la recopilación..")
         
     
     if y.upper()=='Y': x=0
