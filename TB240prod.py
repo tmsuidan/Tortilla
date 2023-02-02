@@ -69,6 +69,34 @@ def validate_date(d):
 while(x==0):
     
     print("Please take a picture on the foam board of each tortilla. Name the best, 'best', the average, 'avg', and the worst, 'worst.'\n Por favor tome una foto en el tablero de espuma de cada tortilla. Nombra lo mejor, 'best', lo promedio, 'avg', y lo peor, 'worst'." )
+    if not os.path.isfile('./images/best.jpg'):
+        c1=0
+        while c1==0:
+            print("best.jpg is not saved to the images folder. Please save the image to the images folder and press enter when ready to proceed. \n best.jpg no se guarda en la carpeta de imágenes. Guarde la imagen en la carpeta de imágenes y presione Entrar cuando esté listo para continuar.")
+            checkbest=input()
+            if len(checkbest)==0:
+                if not os.path.isfile('./images/best.jpg'): c1=0
+                if os.path.isfile('./images/best.jpg'): c1=1
+         
+    if not os.path.isfile('./images/avg.jpg'):
+        c2=0
+        while c2==0:
+            print("avg.jpg is not saved to the images folder. Please save the image to the images folder and press enter when ready to proceed. \n avg.jpg no se guarda en la carpeta de imágenes. Guarde la imagen en la carpeta de imágenes y presione Entrar cuando esté listo para continuar.")
+            checkavg=input()
+            if len(checkavg)==0:
+                if not os.path.isfile('./images/avg.jpg'): c2=0
+                if os.path.isfile('./images/avg.jpg'): c2=1
+              
+    if not os.path.isfile('./images/worst.jpg'):
+        c3=0
+        while c3==0:
+            print("worst.jpg is not saved to the images folder. Please save the image to the images folder and press enter when ready to proceed. \n worst.jpg no se guarda en la carpeta de imágenes. Guarde la imagen en la carpeta de imágenes y presione Entrar cuando esté listo para continuar.")
+            checkworst=input()
+            if len(checkworst)==0:
+                if not os.path.isfile('./images/worst.jpg'): c3=0
+                if os.path.isfile('./images/worst.jpg'): c3=1
+            
+        
     samp_shift=input('Enter shift / Ingresar turno (A/B/C):')
     while len(samp_shift)==0:
         samp_shift=input('Invalid Entry \n Enter shift / Ingresar turno (A/B/C):')
@@ -192,8 +220,10 @@ while(x==0):
         
     
     
-    x=input("Press enter to continue or any other letter key followed by enter to end collection for the shift. \n Presione enter para continuar o cualquier otra tecla de letra sequida de enter para finalizar la recopilacion del turno.")
-    if len(x )==0: x=0
+    x=input("Press 'Y' and enter to continue or 'N' and enter to end collection for the shift. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar el cobro del turno.")
+    if x.upper()=='Y': x=0
+    elif x.upper()=='N': x=1
+    
 
 
 
