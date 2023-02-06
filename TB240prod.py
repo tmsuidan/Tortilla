@@ -112,7 +112,18 @@ while(x==0):
         if len(samp_date )==0:
             samp_date=datetime.date.today()
             samp_date=samp_date.strftime('%m%d%y')
-        
+    if len(samp_date_list)!=0 and samp_date!=samp_date_list[-1]:
+        samp_shift_list=[]
+        samp_date_list=[]
+        samp_line_list=[]
+        samp_time_list=[]
+        rating_list=[]
+        t_perc_list=[]
+        op_perc=[]
+        t_area_list=[]
+        op_area=[]
+        pf_list=[]
+        diam_list=[]
     samp_line=input("Enter line / Ingrese la linea (1, 2, or 6):")
     while len(samp_line)==0:
         samp_line=input("Enter line / Ingrese la linea (1, 2, or 6):")
@@ -173,10 +184,10 @@ while(x==0):
         
         both_mask=trans_mask + 150*press_tf
         
-        cv2.imwrite('./images/{}_{}_{}_{}_{}_trans.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), trans_mask)
-        cv2.imwrite('./images/{}_{}_{}_{}_{}_press.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), press_mask)
-        cv2.imwrite('./images/{}_{}_{}_{}_{}_both.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name), both_mask)
-        os.rename(img1_filename, './images/{}_{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_shift, samp_line, samp_time,img_name))
+        cv2.imwrite('./images/{}_{}_{}_{}_trans.jpg'.format(samp_date,  samp_line, samp_time,img_name), trans_mask)
+        cv2.imwrite('./images/{}_{}_{}_{}_press.jpg'.format(samp_date,  samp_line, samp_time,img_name), press_mask)
+        cv2.imwrite('./images/{}_{}_{}_{}_both.jpg'.format(samp_date,  samp_line, samp_time,img_name), both_mask)
+        os.rename(img1_filename, './images/{}_{}_{}_{}_orig.jpg'.format(samp_date,  samp_line, samp_time,img_name))
         
         
         
