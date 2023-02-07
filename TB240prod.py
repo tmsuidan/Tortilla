@@ -36,7 +36,7 @@ local PC's hard drive at the start and moved to a network drive after processing
 
 
 x=0
-#start a counter on line 37 and start lists lines 39-50
+#start a counter on line 37 and start lists lines 40-50
 samp_shift_list=[]
 samp_date_list=[]
 samp_line_list=[]
@@ -124,6 +124,7 @@ while(x==0):
         op_area=[]
         pf_list=[]
         diam_list=[]
+        #checks if the date sample date is the same as previous with an exception for if it's the first sample. If not the same, starts new lists so that each csv only contains that sample's date
     samp_line=input("Enter line / Ingrese la linea (1, 2, or 6):")
     while len(samp_line)==0:
         samp_line=input("Enter line / Ingrese la linea (1, 2, or 6):")
@@ -204,8 +205,7 @@ while(x==0):
         
         pf_list.append(pf)
         
-        # print("For the ", img_name, " sample at ",samp_time,", the percent translucense is ", "{:.2f}".format(percent_trans), "% and the area is ", "{:.2f}".format(area_trans), "square inches, and the result is ", pf,".")
-        # print("Para ", img_name," muestras a las ",samp_time,", el porcentaje de translucidez es del ", "{:.2f}".format(percent_trans), "% y el area es de ", "{:.2f}".format(area_trans), " pulgadas cuadradas, y el resultado es ", pf,".")
+        
         
         t_perc_list.append(percent_trans)
         t_area_list.append(area_trans)
