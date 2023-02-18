@@ -150,7 +150,7 @@ while(x==0):
         
         img1_filename="./images/"+img_name+'.jpg'
         img1 = cv2.imread(img1_filename)
-        
+        os.rename(img1_filename, './images/{}_{}_{}_{}_orig.jpg'.format(samp_date,  samp_line, samp_time,img_name))
         samp_shift_list.append(samp_shift)
         samp_date_list.append(samp_date)
         samp_line_list.append(samp_line)
@@ -175,20 +175,40 @@ while(x==0):
         trans_tf=trans_mask/255.0
         num_trans=np.sum(trans_tf)
         
-        press_lower=np.array([130,130,100])
-        press_upper=np.array([170,180,160])
+        press_lower=np.array([171,181,161])
+        press_upper=np.array([210,200,195])
         press_mask=cv2.inRange(img1, press_lower, press_upper)
-        press_tf=trans_mask/255.0
+        press_tf=press_mask/255.0
         num_press=np.sum(press_tf)
         
         
         
-        both_mask=trans_mask + 150*press_tf
+        cont, hierarchy = cv2.findContours(trans_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        l = []
+        for e, h in enumerate(hierarchy[0]):
+            #print (e, h[3])
+            if h[3] == -1:
+                l.append(e)
+
+        for i in l:
+            if cv2.contourArea(cont[i]) <5000000:   
+                cv2.drawContours(img1, [cont[i]], -1, (0, 255, 255), 2)
+        cont2, hierarchy2 = cv2.findContours(press_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        l = []
+        for e, h in enumerate(hierarchy2[0]):
+            #print (e, h[3])
+            if h[3] == -1:
+                l.append(e)
+
+        for i in l:
+            if cv2.contourArea(cont2[i]) < 5000000:   
+                cv2.drawContours(img1, [cont2[i]], -1, (255, 0, 0), 2)
         
-        cv2.imwrite('./images/{}_{}_{}_{}_trans.jpg'.format(samp_date,  samp_line, samp_time,img_name), trans_mask)
-        cv2.imwrite('./images/{}_{}_{}_{}_press.jpg'.format(samp_date,  samp_line, samp_time,img_name), press_mask)
-        cv2.imwrite('./images/{}_{}_{}_{}_both.jpg'.format(samp_date,  samp_line, samp_time,img_name), both_mask)
-        os.rename(img1_filename, './images/{}_{}_{}_{}_orig.jpg'.format(samp_date,  samp_line, samp_time,img_name))
+       
+        cv2.imwrite('./images/{}_{}_{}_{}_both_masks.jpg'.format(samp_date,  samp_line, samp_time,img_name), img1)
+        #os.rename(img1_filename, './images/{}_{}_{}_{}_orig.jpg'.format(samp_date,  samp_line, samp_time,img_name))
         
         
         
@@ -223,9 +243,9 @@ while(x==0):
         df.to_csv('./csvs/{}_{}_data.csv'.format(samp_date, samp_shift), index=False)
         shutil.move('./csvs/{}_{}_data.csv'.format(samp_date, samp_shift), 'D:\Documents\LaChiquita\YumTB\Script\ProcData\{}_{}_data.csv'.format(samp_date.strip('/'), samp_shift))
         shutil.move('./images/{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_orig.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
-        shutil.move('./images/{}_{}_{}_{}_trans.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
-        shutil.move('./images/{}_{}_{}_{}_press.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
-        shutil.move('./images/{}_{}_{}_{}_both.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_both.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        shutil.move('./images/{}_{}_{}_{}_both_masks.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_both_masks.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        # shutil.move('./images/{}_{}_{}_{}_press.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        # shutil.move('./images/{}_{}_{}_{}_both.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_both.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
         
         
         
