@@ -252,7 +252,7 @@ while(x==0):
         test2=0
         while test2==0:    
             try: 
-                shutil.move('./csvs/{}_data.csv'.format(samp_date), 'D:\Documents\LaChiquita\YumTB\Script\ProcData\{}_{}_data.csv'.format(samp_date.strip('/'), samp_shift))
+                shutil.move('./csvs/{}_data.csv'.format(samp_date), 'D:\Documents\LaChiquita\YumTB\Script\ProcData\{}_data.csv'.format(samp_date.strip('/')))
                 test2=1
             except:
                 print('Please close the excel file on the PC and press 1 and enter \nCierre el archivo de Excel en la PC y presione 1 e ingrese')
