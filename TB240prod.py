@@ -239,9 +239,22 @@ while(x==0):
                             'Percent Overpressed':op_perc, 'Area Overpressed':op_area,
                         'Percent Translucense':t_perc_list, 'Area Translucense (sq in)':t_area_list, 'Pass/Fail':pf_list})
         print(df.iloc[-1,])
-            
-        df.to_csv('./csvs/{}_{}_data.csv'.format(samp_date, samp_shift), index=False)
-        shutil.move('./csvs/{}_{}_data.csv'.format(samp_date, samp_shift), 'D:\Documents\LaChiquita\YumTB\Script\ProcData\{}_{}_data.csv'.format(samp_date.strip('/'), samp_shift))
+        test1=0
+        while test1==0:    
+            try: 
+                df.to_csv('./csvs/{}_data.csv'.format(samp_date), index=False)
+                test1=1
+            except:
+                print('Please close the excel file on the PC \nCierre el archivo de Excel en la PC y presione 1 e ingrese')
+                test1=input()
+        test2=0
+        while test2==0:    
+            try: 
+                shutil.move('./csvs/{}_data.csv'.format(samp_date), 'D:\Documents\LaChiquita\YumTB\Script\ProcData\{}_{}_data.csv'.format(samp_date.strip('/'), samp_shift))
+                test2=1
+            except:
+                print('Please close the excel file on the PC and press 1 and enter \nCierre el archivo de Excel en la PC y presione 1 e ingrese')
+                test2=input()
         shutil.move('./images/{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_orig.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
         shutil.move('./images/{}_{}_{}_{}_both_masks.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_both_masks.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
         # shutil.move('./images/{}_{}_{}_{}_press.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
