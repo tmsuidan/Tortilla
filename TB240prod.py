@@ -194,6 +194,7 @@ while(x==0):
         for i in l:
             if cv2.contourArea(cont[i]) <5000000:   
                 cv2.drawContours(img1, [cont[i]], -1, (0, 255, 255), 4)
+                cv2.fillPoly(img1, pts=[cont[i]], color= (0, 255, 255))
         cont2, hierarchy2 = cv2.findContours(press_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         l = []
@@ -205,6 +206,7 @@ while(x==0):
         for i in l:
             if cv2.contourArea(cont2[i]) < 5000000:   
                 cv2.drawContours(img1, [cont2[i]], -1, (255, 0, 0), 4)
+                cv2.fillPoly(img1, pts=[cont2[i]], color= (255, 0, 0))
         
        
         cv2.imwrite('./images/{}_{}_{}_{}_both_masks.jpg'.format(samp_date,  samp_line, samp_time,img_name), img1)
