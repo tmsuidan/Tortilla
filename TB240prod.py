@@ -169,13 +169,13 @@ while(x==0):
         non_black=NumPixels-num_black
         
         
-        trans_lower=np.array([130,130,100])
-        trans_upper=np.array([180,190,180])
+        trans_lower=np.array([100,100,100])
+        trans_upper=np.array([180,180,170])
         trans_mask=cv2.inRange(img1, trans_lower, trans_upper)
         trans_tf=trans_mask/255.0
         num_trans=np.sum(trans_tf)
         
-        press_lower=np.array([181,191,181])
+        press_lower=np.array([181,181,171])
         press_upper=np.array([230,220,205])
         press_mask=cv2.inRange(img1, press_lower, press_upper)
         press_tf=press_mask/255.0
@@ -192,7 +192,7 @@ while(x==0):
                 l.append(e)
 
         for i in l:
-            if cv2.contourArea(cont[i]) <5000000:   
+            if cv2.contourArea(cont[i]) <1000000000:   
                 cv2.drawContours(img1, [cont[i]], -1, (0, 255, 255), 4)
                 cv2.fillPoly(img1, pts=[cont[i]], color= (0, 255, 255))
         cont2, hierarchy2 = cv2.findContours(press_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -204,7 +204,7 @@ while(x==0):
                 l.append(e)
 
         for i in l:
-            if cv2.contourArea(cont2[i]) < 5000000:   
+            if cv2.contourArea(cont2[i]) < 1000000000:   
                 cv2.drawContours(img1, [cont2[i]], -1, (255, 0, 0), 4)
                 cv2.fillPoly(img1, pts=[cont2[i]], color= (255, 0, 0))
         
