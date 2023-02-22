@@ -170,13 +170,13 @@ while(x==0):
         
         
         trans_lower=np.array([130,130,100])
-        trans_upper=np.array([170,180,160])
+        trans_upper=np.array([180,190,180])
         trans_mask=cv2.inRange(img1, trans_lower, trans_upper)
         trans_tf=trans_mask/255.0
         num_trans=np.sum(trans_tf)
         
-        press_lower=np.array([171,181,161])
-        press_upper=np.array([210,200,195])
+        press_lower=np.array([181,191,181])
+        press_upper=np.array([230,220,205])
         press_mask=cv2.inRange(img1, press_lower, press_upper)
         press_tf=press_mask/255.0
         num_press=np.sum(press_tf)
