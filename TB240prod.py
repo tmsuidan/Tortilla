@@ -151,6 +151,7 @@ while(x==0):
         img1_filename="./images/"+img_name+'.jpg'
         img1 = cv2.imread(img1_filename)
         os.rename(img1_filename, './images/{}_{}_{}_{}_orig.jpg'.format(samp_date,  samp_line, samp_time,img_name))
+        imgGry=cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
         samp_shift_list.append(samp_shift)
         samp_date_list.append(samp_date)
         samp_line_list.append(samp_line)
@@ -161,27 +162,44 @@ while(x==0):
         
         
         NumPixels=img1.shape[0]*img1.shape[1]
-        black_lower=np.array([0,0,0])
-        black_up=np.array([80,80,100])
-        black_mask=cv2.inRange(img1,black_lower,black_up)
+        # black_lower=np.array([0,0,0])
+        # black_up=np.array([80,80,100])
+        black_lower=0
+        black_up=100
+        black_mask=cv2.inRange(imgGry,black_lower,black_up)
         black_tf=black_mask/255.0
         num_black=np.sum(black_tf)
         non_black=NumPixels-num_black
         
         
-        trans_lower=np.array([100,100,100])
-        trans_upper=np.array([180,180,170])
-        trans_mask=cv2.inRange(img1, trans_lower, trans_upper)
+        # trans_lower=np.array([100,100,100])
+        # trans_upper=np.array([180,180,170])
+        trans_lower=101
+        trans_upper=165
+        trans_mask=cv2.inRange(imgGry, trans_lower, trans_upper)
         trans_tf=trans_mask/255.0
         num_trans=np.sum(trans_tf)
         
-        press_lower=np.array([181,181,171])
-        press_upper=np.array([230,220,205])
-        press_mask=cv2.inRange(img1, press_lower, press_upper)
+        # press_lower=np.array([181,181,171])
+        # press_upper=np.array([230,220,205])
+        press_lower=166
+        press_upper=195
+        press_mask=cv2.inRange(imgGry, press_lower, press_upper)
         press_tf=press_mask/255.0
         num_press=np.sum(press_tf)
         
-        
+        cont2, hierarchy2 = cv2.findContours(press_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        l = []
+        for e, h in enumerate(hierarchy2[0]):
+            #print (e, h[3])
+            if h[3] == -1:
+                l.append(e)
+
+        for i in l:
+            if cv2.contourArea(cont2[i]) < 10000000:   
+                cv2.drawContours(img1, [cont2[i]], -1, (255, 0, 0), 4)
+                cv2.fillPoly(img1, pts=[cont2[i]], color= (255, 0, 0))
         
         cont, hierarchy = cv2.findContours(trans_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -192,21 +210,10 @@ while(x==0):
                 l.append(e)
 
         for i in l:
-            if cv2.contourArea(cont[i]) <1000000000:   
+            if cv2.contourArea(cont[i]) <10000000:   
                 cv2.drawContours(img1, [cont[i]], -1, (0, 255, 255), 4)
                 cv2.fillPoly(img1, pts=[cont[i]], color= (0, 255, 255))
-        cont2, hierarchy2 = cv2.findContours(press_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-        l = []
-        for e, h in enumerate(hierarchy2[0]):
-            #print (e, h[3])
-            if h[3] == -1:
-                l.append(e)
-
-        for i in l:
-            if cv2.contourArea(cont2[i]) < 1000000000:   
-                cv2.drawContours(img1, [cont2[i]], -1, (255, 0, 0), 4)
-                cv2.fillPoly(img1, pts=[cont2[i]], color= (255, 0, 0))
+        
         
        
         cv2.imwrite('./images/{}_{}_{}_{}_both_masks.jpg'.format(samp_date,  samp_line, samp_time,img_name), img1)
@@ -221,7 +228,7 @@ while(x==0):
         area_trans=(percent_trans)*area_total
         area_press=(percent_press)*area_total
         
-        if percent_trans>0.15:
+        if percent_trans>0.146:
             pf="Fail"
         else: pf="Pass"
         
