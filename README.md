@@ -1,4 +1,4 @@
-# YumTB
+# Tortilla translucense and overpressed analysis
 A python script to assess translucent and over pressed percent and area on a tortilla
 
 Requirements:
