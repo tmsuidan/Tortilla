@@ -23,21 +23,21 @@ import datetime
 directory="./images"
 if not os.path.exists(directory):
     os.makedirs(directory)
-path1=directory
+path_io=directory
 
 directory2="./csvs"
 if not os.path.exists(directory2):
     os.makedirs(directory2)
+path_do=directory2
+directory3="./ProcImages"
+if not os.path.exists(directory3):
+    os.makedirs(directory3)
+path_ip=directory3
 
-directory="./ProcImages"
-if not os.path.exists(directory):
-    os.makedirs(directory)
-path1=directory
-
-directory2="./ProcData"
-if not os.path.exists(directory2):
-    os.makedirs(directory2)    
-path2=directory2
+directory4="./ProcData"
+if not os.path.exists(directory4):
+    os.makedirs(directory4)    
+path_dp=directory4
 
 """Creats directories if they don't exist, but I intended for them to be on the 
 local PC's hard drive at the start and moved to a network drive after processing."""
@@ -77,32 +77,32 @@ def validate_date(d):
 while(x==0):
     
     print("Please take a picture on the foam board of each tortilla. Name the best, 'best', the average, 'avg', and the worst, 'worst.'\n Por favor tome una foto en el tablero de espuma de cada tortilla. Nombra lo mejor, 'best', lo promedio, 'avg', y lo peor, 'worst'." )
-    if not os.path.isfile('./images/best.jpg'):
+    if not os.path.isfile(path_io+'/best.jpg'):
         c1=0
         while c1==0:
             print("best.jpg is not saved to the images folder. Please save the image to the images folder and press enter when ready to proceed. \n best.jpg no se guarda en la carpeta de imágenes. Guarde la imagen en la carpeta de imágenes y presione Entrar cuando esté listo para continuar.")
             checkbest=input()
             if len(checkbest)==0:
-                if not os.path.isfile('./images/best.jpg'): c1=0
-                if os.path.isfile('./images/best.jpg'): c1=1
+                if not os.path.isfile(path_io+'/best.jpg'): c1=0
+                if os.path.isfile(path_io+'/best.jpg'): c1=1
          
-    if not os.path.isfile('./images/avg.jpg'):
+    if not os.path.isfile(path_io+'/avg.jpg'):
         c2=0
         while c2==0:
             print("avg.jpg is not saved to the images folder. Please save the image to the images folder and press enter when ready to proceed. \n avg.jpg no se guarda en la carpeta de imágenes. Guarde la imagen en la carpeta de imágenes y presione Entrar cuando esté listo para continuar.")
             checkavg=input()
             if len(checkavg)==0:
-                if not os.path.isfile('./images/avg.jpg'): c2=0
-                if os.path.isfile('./images/avg.jpg'): c2=1
+                if not os.path.isfile(path_io+'/avg.jpg'): c2=0
+                if os.path.isfile(path_io+'/avg.jpg'): c2=1
               
-    if not os.path.isfile('./images/worst.jpg'):
+    if not os.path.isfile(path_io+'/worst.jpg'):
         c3=0
         while c3==0:
             print("worst.jpg is not saved to the images folder. Please save the image to the images folder and press enter when ready to proceed. \n worst.jpg no se guarda en la carpeta de imágenes. Guarde la imagen en la carpeta de imágenes y presione Entrar cuando esté listo para continuar.")
             checkworst=input()
             if len(checkworst)==0:
-                if not os.path.isfile('./images/worst.jpg'): c3=0
-                if os.path.isfile('./images/worst.jpg'): c3=1
+                if not os.path.isfile(path_io+'/worst.jpg'): c3=0
+                if os.path.isfile(path_io+'/worst.jpg'): c3=1
             
         
     samp_shift=input('Enter shift / Ingresar turno (A/B/C):')
@@ -156,9 +156,9 @@ while(x==0):
 
     for img_name in ('best', 'worst', 'avg'):
         
-        img1_filename="./images/"+img_name+'.jpg'
+        img1_filename=path_io+"/"+img_name+'.jpg'
         img1 = cv2.imread(img1_filename)
-        os.rename(img1_filename, './images/{}_{}_{}_{}_orig.jpg'.format(samp_date,  samp_line, samp_time,img_name))
+        os.rename(img1_filename, path_io+'/{}_{}_{}_{}_orig.jpg'.format(samp_date,  samp_line, samp_time,img_name))
         imgGry=cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
         samp_shift_list.append(samp_shift)
         samp_date_list.append(samp_date)
@@ -205,7 +205,7 @@ while(x==0):
                 l.append(e)
 
         for i in l:
-            if cv2.contourArea(cont2[i]) < 10000000:   
+            if cv2.contourArea(cont2[i]) < 0.8*NumPixels:   
                 cv2.drawContours(img1, [cont2[i]], -1, (255, 0, 0), 4)
                 cv2.fillPoly(img1, pts=[cont2[i]], color= (255, 0, 0))
         
@@ -218,14 +218,14 @@ while(x==0):
                 l.append(e)
 
         for i in l:
-            if cv2.contourArea(cont[i]) <10000000:   
+            if cv2.contourArea(cont[i]) <0.8*NumPixels:   
                 cv2.drawContours(img1, [cont[i]], -1, (0, 255, 255), 4)
                 cv2.fillPoly(img1, pts=[cont[i]], color= (0, 255, 255))
         
         
        
-        cv2.imwrite('./images/{}_{}_{}_{}_both_masks.jpg'.format(samp_date,  samp_line, samp_time,img_name), img1)
-        #os.rename(img1_filename, './images/{}_{}_{}_{}_orig.jpg'.format(samp_date,  samp_line, samp_time,img_name))
+        cv2.imwrite(path_io+'/{}_{}_{}_{}_both_masks.jpg'.format(samp_date,  samp_line, samp_time,img_name), img1)
+        #os.rename(img1_filename, path_io+'/{}_{}_{}_{}_orig.jpg'.format(samp_date,  samp_line, samp_time,img_name))
         
         
         
@@ -259,7 +259,7 @@ while(x==0):
         test1=0
         while test1==0:    
             try: 
-                df.to_csv('./csvs/{}_data.csv'.format(samp_date), index=False)
+                df.to_csv(path_do+'/{}_data.csv'.format(samp_date), index=False)
                 test1=1
             except:
                 print('Please close the excel file on the PC \nCierre el archivo de Excel en la PC y presione 1 e ingrese')
@@ -267,13 +267,13 @@ while(x==0):
         test2=0
         while test2==0:    
             try: 
-                shutil.move('./csvs/{}_data.csv'.format(samp_date), 'D:\Documents\LaChiquita\YumTB\Script\ProcData\{}_data.csv'.format(samp_date.strip('/')))
+                shutil.move(path_do+'/{}_data.csv'.format(samp_date), path_dp+'/{}_data.csv'.format(samp_date.strip('/')))
                 test2=1
             except:
                 print('Please close the excel file on the PC and press 1 and enter \nCierre el archivo de Excel en la PC y presione 1 e ingrese')
                 test2=input()
-        shutil.move('./images/{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_orig.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
-        shutil.move('./images/{}_{}_{}_{}_both_masks.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_both_masks.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        shutil.move(path_io+'/{}_{}_{}_{}_orig.jpg'.format(samp_date, samp_line, samp_time,img_name), path_ip+'/{}_{}_{}_{}_{}_orig.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
+        shutil.move(path_io+'/{}_{}_{}_{}_both_masks.jpg'.format(samp_date,  samp_line, samp_time,img_name), path_ip+'/{}_{}_{}_{}_{}_both_masks.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
         # shutil.move('./images/{}_{}_{}_{}_press.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_trans.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
         # shutil.move('./images/{}_{}_{}_{}_both.jpg'.format(samp_date,  samp_line, samp_time,img_name), 'D:\Documents\LaChiquita\YumTB\Script\ProcImages\{}_{}_{}_{}_{}_both.jpg'.format(samp_date.strip('/'), samp_shift, samp_line, samp_time,img_name))
         
