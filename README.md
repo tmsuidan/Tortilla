@@ -15,3 +15,5 @@ A 12MP camera was used.
 
 Sample pictures are in the images directory and would need to be renamed (removing the digit).
 
+File paths require adjustments 
+
