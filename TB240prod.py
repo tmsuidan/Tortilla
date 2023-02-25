@@ -28,7 +28,15 @@ path1=directory
 directory2="./csvs"
 if not os.path.exists(directory2):
     os.makedirs(directory2)
-    
+
+directory="./ProcImages"
+if not os.path.exists(directory):
+    os.makedirs(directory)
+path1=directory
+
+directory2="./ProcData"
+if not os.path.exists(directory2):
+    os.makedirs(directory2)    
 path2=directory2
 
 """Creats directories if they don't exist, but I intended for them to be on the 
