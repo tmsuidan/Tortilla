@@ -29,12 +29,12 @@ directory2="./csvs"
 if not os.path.exists(directory2):
     os.makedirs(directory2)
 path_do=directory2
-directory3="./ProcImages"
+directory3="./ProcImages" #meant to be network drive location
 if not os.path.exists(directory3):
     os.makedirs(directory3)
 path_ip=directory3
 
-directory4="./ProcData"
+directory4="./ProcData" #meant to be network drive location
 if not os.path.exists(directory4):
     os.makedirs(directory4)    
 path_dp=directory4
