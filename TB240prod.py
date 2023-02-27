@@ -187,6 +187,8 @@ while(x==0):
         trans_mask=cv2.inRange(imgGry, trans_lower, trans_upper)
         trans_tf=trans_mask/255.0
         num_trans=np.sum(trans_tf)
+        trans_mask3d=cv2.cvtColor(trans_mask, cv2.COLOR_GRAY2BGR)
+        
         
         # press_lower=np.array([181,181,171])
         # press_upper=np.array([230,220,205])
@@ -195,32 +197,12 @@ while(x==0):
         press_mask=cv2.inRange(imgGry, press_lower, press_upper)
         press_tf=press_mask/255.0
         num_press=np.sum(press_tf)
+        press_mask3d=cv2.cvtColor(press_mask, cv2.COLOR_GRAY2BGR)
         
-        cont2, hierarchy2 = cv2.findContours(press_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-        l = []
-        for e, h in enumerate(hierarchy2[0]):
-            #print (e, h[3])
-            if h[3] == -1:
-                l.append(e)
-
-        for i in l:
-            if cv2.contourArea(cont2[i]) < 0.8*NumPixels:   
-                cv2.drawContours(img1, [cont2[i]], -1, (255, 0, 0), 4)
-                cv2.fillPoly(img1, pts=[cont2[i]], color= (255, 0, 0))
+        img1[(press_mask3d==255).all(-1)]=[255,0,0]
+        img1[(trans_mask3d==255).all(-1)]=[0,255,255]
         
-        cont, hierarchy = cv2.findContours(trans_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-        l = []
-        for e, h in enumerate(hierarchy[0]):
-            #print (e, h[3])
-            if h[3] == -1:
-                l.append(e)
-
-        for i in l:
-            if cv2.contourArea(cont[i]) <0.8*NumPixels:   
-                cv2.drawContours(img1, [cont[i]], -1, (0, 255, 255), 4)
-                cv2.fillPoly(img1, pts=[cont[i]], color= (0, 255, 255))
+      
         
         
        
