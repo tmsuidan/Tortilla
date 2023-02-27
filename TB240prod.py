@@ -182,7 +182,7 @@ while(x==0):
         
         # trans_lower=np.array([100,100,100])
         # trans_upper=np.array([180,180,170])
-        trans_lower=101
+        trans_lower=145
         trans_upper=165
         trans_mask=cv2.inRange(imgGry, trans_lower, trans_upper)
         trans_tf=trans_mask/255.0
