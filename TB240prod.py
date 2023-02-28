@@ -182,13 +182,19 @@ while(x==0):
         
         # trans_lower=np.array([100,100,100])
         # trans_upper=np.array([180,180,170])
-        trans_lower=145
+        trans_lower=100
         trans_upper=165
         trans_mask=cv2.inRange(imgGry, trans_lower, trans_upper)
         trans_tf=trans_mask/255.0
         num_trans=np.sum(trans_tf)
         trans_mask3d=cv2.cvtColor(trans_mask, cv2.COLOR_GRAY2BGR)
         
+        toast_lower=np.array([50,110,100])
+        toast_up=np.array([100,180,200])
+        toast_mask=cv2.inRange(img1,toast_lower,toast_up)
+        toast_mask3d=cv2.cvtColor(toast_mask, cv2.COLOR_GRAY2BGR)
+        
+        trans_mask3d[(toast_mask3d==255).all(-1)]=[0,0,0]
         
         # press_lower=np.array([181,181,171])
         # press_upper=np.array([230,220,205])
@@ -265,7 +271,7 @@ while(x==0):
     
     y=input("Press 'Y' and enter to continue or 'N' and enter to end collection. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar el cobro del turno.")
     while y.upper()not in ['Y','N']:
-        y=input("Inavlid Entry \nPress 'Y' and enter to continue or 'N' and enter to end collection for the shift. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar la recopilación..")
+        y=input("Invalid Entry \nPress 'Y' and enter to continue or 'N' and enter to end collection for the shift. \n Presione 'Y' e ingrese para continuar o 'N' e ingrese para finalizar la recopilación..")
         
     
     if y.upper()=='Y': x=0
